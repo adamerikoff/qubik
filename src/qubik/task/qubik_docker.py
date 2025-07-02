@@ -43,11 +43,12 @@ class DockerResult:
 class Docker:
     def __init__(self,
                  config: Config,
-                 client: typing.Optional[docker.DockerClient] = None):
+                 client: typing.Optional[docker.DockerClient] = None,
+                 initial_container_id: typing.Optional[str] = None):
 
         self.client: docker.DockerClient = client if client else docker.from_env()
         self.config: Config = config
-        self.container_id: typing.Optional[str] = None
+        self.container_id: typing.Optional[str] = initial_container_id
         self._container: typing.Optional[docker.models.containers.Container] = None
 
         logger.info("Docker client initialized for image: '%s'", self.config.image)
@@ -85,11 +86,11 @@ class Docker:
         
         container_kwargs = {
             "image": self.config.image,
-            "command": self.config.cmd if self.config.cmd else None, # Pass the command list
+            "command": self.config.cmd if self.config.cmd else None,
             "environment": self.config.env,
             "name": self.config.name,
             "restart_policy": restart_policy_dict,
-            "publish_all_ports": True, # As per the Go example
+            "publish_all_ports": True,
             "mem_limit": self.config.memory if self.config.memory > 0 else None,
             "nano_cpus": nano_cpus,
             "tty": False,
@@ -163,8 +164,7 @@ class Docker:
         except docker.errors.NotFound:
             err_msg = f"Container '{self.container_id}' not found. It might already be stopped/removed."
             logger.warning(err_msg)
-            return DockerResult(action="stop", container_id=self.container_id,
-                                error=docker.errors.NotFound(err_msg), result="container_not_found")
+            return DockerResult(action="stop", container_id=self.container_id, error=docker.errors.NotFound(err_msg), result="container_not_found")
         except docker.errors.APIError as e:
             logger.error(f"Error stopping or removing container '{self.container_id}': {e}")
             return DockerResult(action="stop", container_id=self.container_id, error=e, result="api_error")

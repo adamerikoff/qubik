@@ -1,17 +1,11 @@
 import uuid
-import enum
 import datetime
 import typing
 import logging
 
-logger = logging.getLogger(__name__)
+from .state import State
 
-class State(enum.Enum):
-    PENDING   = 0
-    SCHEDULED = 1
-    RUNNING   = 2
-    COMPLETED = 3
-    FAILED    = 4
+logger = logging.getLogger(__name__)
 
 class Task:
     def __init__(self,

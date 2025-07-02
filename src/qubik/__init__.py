@@ -3,7 +3,7 @@ import pathlib
 import logging
 
 from .node import Node
-from .task import Task, State, TaskEvent, Config, Docker, DockerResult
+from .task import Task, State, TaskEvent, Config, Docker, DockerResult, state_contains, valid_state_transition
 from .manager import Manager
 from .worker import Worker
 from .scheduler import Scheduler

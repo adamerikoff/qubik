@@ -385,3 +385,334 @@ Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
 2025-07-03 00:27:49 - qubik.main - INFO - Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' has been stopped and removed successfully.
 2025-07-03 00:27:49 - qubik.main - INFO - 
 Orchestrator Core Test Script Finished Successfully.
+2025-07-03 02:51:21 - qubik - INFO - Logging configured
+2025-07-03 02:51:21 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 02:51:21 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 02:51:21 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 02:51:21 - qubik.task.config - INFO - Config created: test-container-00de3aac (image: postgres:13)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
+2025-07-03 02:51:21 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'postgres:13'
+2025-07-03 02:51:21 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 02:51:21 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-00de3aac' with image 'postgres:13'
+2025-07-03 02:51:21 - qubik.task.qubik_docker - INFO - Pulling image: 'postgres:13'...
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - Image 'postgres:13' pulled successfully.
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - Creating container 'test-container-00de3aac' with config: {'image': 'postgres:13', 'environment': ['POSTGRES_USER=cube', 'POSTGRES_PASSWORD=secret'], 'name': 'test-container-00de3aac', 'restart_policy': {'Name': 'on-failure'}, 'publish_all_ports': True, 'mem_limit': 268435456, 'nano_cpus': 500000000, 'tty': False}
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - Container 'test-container-00de3aac' created with ID: 7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - Starting container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41'...
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - Container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41' started successfully.
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - Logs for container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41':
+
+2025-07-03 02:51:25 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: 7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41) - Result: success
+2025-07-03 02:51:25 - qubik.main - INFO - Container 'test-container-00de3aac' (ID: 7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41) is running.
+2025-07-03 02:51:25 - qubik.main - INFO - Container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41' is running. Waiting for 5 seconds...
+2025-07-03 02:51:30 - qubik.main - INFO - 
+--- Phase 2: Stopping and Removing Container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41' ---
+2025-07-03 02:51:30 - qubik.main - INFO - Attempting to stop and remove container: '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41'
+2025-07-03 02:51:30 - qubik.task.qubik_docker - INFO - Attempting to stop and remove container: '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41'
+2025-07-03 02:51:30 - qubik.task.qubik_docker - INFO - Stopping container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41'...
+2025-07-03 02:51:31 - qubik.task.qubik_docker - INFO - Container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41' stopped successfully.
+2025-07-03 02:51:31 - qubik.task.qubik_docker - INFO - Removing container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41'...
+2025-07-03 02:51:31 - qubik.task.qubik_docker - INFO - Container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41' removed successfully.
+2025-07-03 02:51:31 - qubik.task.qubik_docker - INFO - DockerResult created for action 'stop' (container_id: None) - Result: success
+2025-07-03 02:51:31 - qubik.main - INFO - Container '7f6fa494e98c3836280f5abef66770ba7b25163f6d5ec0639114d55690c95e41' has been stopped and removed successfully.
+2025-07-03 02:51:31 - qubik.main - INFO - 
+Orchestrator Core Test Script Finished Successfully.
+2025-07-03 03:03:46 - qubik - INFO - Logging configured
+2025-07-03 03:03:46 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:03:46 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:03:46 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:03:46 - qubik.task.task - INFO - Task initialized: uuid=2a97a98c-90b1-445f-8614-9f2e5306fbc8, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:03:46 - qubik.main - INFO - Created initial task: Task(uuid=2a97a98c..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:03:46 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:03:46 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 2a97a98c) added to queue.
+2025-07-03 03:03:46 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 2a97a98c) with desired state: SCHEDULED.
+2025-07-03 03:03:46 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 2a97a98c) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:03:46 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: 2a97a98c) as desired state is SCHEDULED.
+2025-07-03 03:03:46 - qubik.worker.worker - DEBUG - start_task: Starting task_id=2a97a98c-90b1-445f-8614-9f2e5306fbc8 ('test-container-1')
+2025-07-03 03:05:24 - qubik - INFO - Logging configured
+2025-07-03 03:05:24 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:05:24 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:05:24 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:05:24 - qubik.task.task - INFO - Task initialized: uuid=c62c6bc4-300c-4d86-b2df-525a75a03937, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:05:24 - qubik.main - INFO - Created initial task: Task(uuid=c62c6bc4..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:05:24 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:05:24 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: c62c6bc4) added to queue.
+2025-07-03 03:05:24 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: c62c6bc4) with desired state: SCHEDULED.
+2025-07-03 03:05:24 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: c62c6bc4) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:05:24 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: c62c6bc4) as desired state is SCHEDULED.
+2025-07-03 03:05:24 - qubik.worker.worker - DEBUG - start_task: Starting task_id=c62c6bc4-300c-4d86-b2df-525a75a03937 ('test-container-1')
+2025-07-03 03:05:24 - qubik.task.config - INFO - Config created: test-container-1-c62c6bc4 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 128, Disk: 100, Ports: []
+2025-07-03 03:05:24 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:05:24 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:05:24 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-c62c6bc4' with image 'strm/helloworld-http'
+2025-07-03 03:05:24 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:05:40 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:05:40 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-c62c6bc4' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-c62c6bc4', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 128, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:05:40 - qubik.task.qubik_docker - ERROR - Error creating container 'test-container-1-c62c6bc4': 400 Client Error for http+docker://localhost/v1.50/containers/create?name=test-container-1-c62c6bc4: Bad Request ("Minimum memory limit allowed is 6MB")
+2025-07-03 03:05:40 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'start' (container_id: None) with error: 400 Client Error for http+docker://localhost/v1.50/containers/create?name=test-container-1-c62c6bc4: Bad Request ("Minimum memory limit allowed is 6MB") - Result: container_creation_failed
+2025-07-03 03:05:40 - qubik.worker.worker - ERROR - Error running task 'test-container-1' (UUID: c62c6bc4-300c-4d86-b2df-525a75a03937): 400 Client Error for http+docker://localhost/v1.50/containers/create?name=test-container-1-c62c6bc4: Bad Request ("Minimum memory limit allowed is 6MB") - Result: container_creation_failed
+2025-07-03 03:05:40 - qubik.main - CRITICAL - Error starting task: 400 Client Error for http+docker://localhost/v1.50/containers/create?name=test-container-1-c62c6bc4: Bad Request ("Minimum memory limit allowed is 6MB")
+2025-07-03 03:09:14 - qubik - INFO - Logging configured
+2025-07-03 03:09:14 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:09:14 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:09:14 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:09:14 - qubik.task.task - INFO - Task initialized: uuid=bb00b14a-3969-4900-9c6e-2281c5b63ac2, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:09:14 - qubik.main - INFO - Created initial task: Task(uuid=bb00b14a..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:09:14 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:09:14 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: bb00b14a) added to queue.
+2025-07-03 03:09:14 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: bb00b14a) with desired state: SCHEDULED.
+2025-07-03 03:09:14 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: bb00b14a) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:09:14 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: bb00b14a) as desired state is SCHEDULED.
+2025-07-03 03:09:14 - qubik.worker.worker - DEBUG - start_task: Starting task_id=bb00b14a-3969-4900-9c6e-2281c5b63ac2 ('test-container-1')
+2025-07-03 03:09:14 - qubik.task.config - INFO - Config created: test-container-1-bb00b14a (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:09:14 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:09:14 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:09:14 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-bb00b14a' with image 'strm/helloworld-http'
+2025-07-03 03:09:14 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-bb00b14a' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-bb00b14a', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 134217728, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - Container 'test-container-1-bb00b14a' created with ID: 974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - Starting container '974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785'...
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - Container '974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785' started successfully.
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - Logs for container '974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785':
+
+2025-07-03 03:09:16 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: 974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785) - Result: success
+2025-07-03 03:09:16 - qubik.worker.worker - INFO - Worker 'test-worker-1': Started task 'test-container-1' (Container ID: 974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785).
+2025-07-03 03:09:16 - qubik.main - INFO - Task bb00b14a is running in container 974d40feba74eb6a4a30660e5b860ebceff54fdc0d4af656398c7d9382793785
+2025-07-03 03:09:16 - qubik.main - INFO - Sleeping for 10 seconds to allow container to run...
+2025-07-03 03:09:26 - qubik.main - INFO - --- Stopping Task bb00b14a ---
+2025-07-03 03:09:26 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: bb00b14a) added to queue.
+2025-07-03 03:09:26 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: bb00b14a) with desired state: COMPLETED.
+2025-07-03 03:09:26 - qubik.worker.worker - DEBUG - Task 'test-container-1' (UUID: bb00b14a) found in DB. Current state: COMPLETED.
+2025-07-03 03:09:26 - qubik.worker.worker - ERROR - Invalid state transition for task 'test-container-1' (UUID: bb00b14a): from COMPLETED to COMPLETED.
+2025-07-03 03:09:26 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'run_task' (container_id: None) with error: Invalid state transition for task 'test-container-1' (UUID: bb00b14a): from COMPLETED to COMPLETED. - Result: invalid_state_transition
+2025-07-03 03:09:26 - qubik.main - CRITICAL - Error stopping task: Invalid state transition for task 'test-container-1' (UUID: bb00b14a): from COMPLETED to COMPLETED.
+2025-07-03 03:09:32 - qubik - INFO - Logging configured
+2025-07-03 03:09:32 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:09:32 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:09:32 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:09:32 - qubik.task.task - INFO - Task initialized: uuid=ccddf675-6a73-4f38-8872-f3ef1e506ad1, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:09:32 - qubik.main - INFO - Created initial task: Task(uuid=ccddf675..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:09:32 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:09:32 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: ccddf675) added to queue.
+2025-07-03 03:09:32 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: ccddf675) with desired state: SCHEDULED.
+2025-07-03 03:09:32 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: ccddf675) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:09:32 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: ccddf675) as desired state is SCHEDULED.
+2025-07-03 03:09:32 - qubik.worker.worker - DEBUG - start_task: Starting task_id=ccddf675-6a73-4f38-8872-f3ef1e506ad1 ('test-container-1')
+2025-07-03 03:09:32 - qubik.task.config - INFO - Config created: test-container-1-ccddf675 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:09:32 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:09:32 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:09:32 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-ccddf675' with image 'strm/helloworld-http'
+2025-07-03 03:09:32 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:09:33 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:09:33 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-ccddf675' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-ccddf675', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 134217728, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:09:33 - qubik.task.qubik_docker - INFO - Container 'test-container-1-ccddf675' created with ID: c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b
+2025-07-03 03:09:33 - qubik.task.qubik_docker - INFO - Starting container 'c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b'...
+2025-07-03 03:09:34 - qubik.task.qubik_docker - INFO - Container 'c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b' started successfully.
+2025-07-03 03:09:34 - qubik.task.qubik_docker - INFO - Logs for container 'c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b':
+
+2025-07-03 03:09:34 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b) - Result: success
+2025-07-03 03:09:34 - qubik.worker.worker - INFO - Worker 'test-worker-1': Started task 'test-container-1' (Container ID: c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b).
+2025-07-03 03:09:34 - qubik.main - INFO - Task ccddf675 is running in container c6b4409e47a7c59e8420fe5d13c72e69c88be0677005fdc6346ffe6819e7998b
+2025-07-03 03:09:34 - qubik.main - INFO - Sleeping for 10 seconds to allow container to run...
+2025-07-03 03:09:44 - qubik.main - INFO - --- Stopping Task ccddf675 ---
+2025-07-03 03:09:44 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: ccddf675) added to queue.
+2025-07-03 03:09:44 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: ccddf675) with desired state: COMPLETED.
+2025-07-03 03:09:44 - qubik.worker.worker - DEBUG - Task 'test-container-1' (UUID: ccddf675) found in DB. Current state: COMPLETED.
+2025-07-03 03:09:44 - qubik.worker.worker - ERROR - Invalid state transition for task 'test-container-1' (UUID: ccddf675): from COMPLETED to COMPLETED.
+2025-07-03 03:09:44 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'run_task' (container_id: None) with error: Invalid state transition for task 'test-container-1' (UUID: ccddf675): from COMPLETED to COMPLETED. - Result: invalid_state_transition
+2025-07-03 03:09:44 - qubik.main - CRITICAL - Error stopping task: Invalid state transition for task 'test-container-1' (UUID: ccddf675): from COMPLETED to COMPLETED.
+2025-07-03 03:16:58 - qubik - INFO - Logging configured
+2025-07-03 03:16:58 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:16:58 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:16:58 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:16:58 - qubik.task.task - INFO - Task initialized: uuid=9cd6c547-5d0c-4fe3-aa0e-5faf3f600465, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:16:58 - qubik.main - INFO - Created initial task for starting: Task(uuid=9cd6c547..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:16:58 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:16:58 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 9cd6c547) added to queue.
+2025-07-03 03:16:58 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 9cd6c547) with desired state: SCHEDULED.
+2025-07-03 03:16:58 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 9cd6c547) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:16:58 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: 9cd6c547) as desired state is SCHEDULED.
+2025-07-03 03:16:58 - qubik.worker.worker - DEBUG - start_task: Starting task_id=9cd6c547-5d0c-4fe3-aa0e-5faf3f600465 ('test-container-1')
+2025-07-03 03:16:58 - qubik.task.config - INFO - Config created: test-container-1-9cd6c547 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:16:58 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:16:58 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:16:58 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-9cd6c547' with image 'strm/helloworld-http'
+2025-07-03 03:16:58 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:17:01 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:17:01 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-9cd6c547' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-9cd6c547', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 134217728, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:17:02 - qubik.task.qubik_docker - INFO - Container 'test-container-1-9cd6c547' created with ID: 4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393
+2025-07-03 03:17:02 - qubik.task.qubik_docker - INFO - Starting container '4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393'...
+2025-07-03 03:17:02 - qubik.task.qubik_docker - INFO - Container '4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393' started successfully.
+2025-07-03 03:17:02 - qubik.task.qubik_docker - INFO - Logs for container '4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393':
+
+2025-07-03 03:17:02 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: 4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393) - Result: success
+2025-07-03 03:17:02 - qubik.worker.worker - INFO - Worker 'test-worker-1': Started task 'test-container-1' (Container ID: 4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393).
+2025-07-03 03:17:02 - qubik.main - INFO - Task 9cd6c547 is running in container 4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393
+2025-07-03 03:17:02 - qubik.main - INFO - Sleeping for 10 seconds to allow container to run...
+2025-07-03 03:17:12 - qubik.main - INFO - --- Stopping Task 9cd6c547 ---
+2025-07-03 03:17:12 - qubik.task.task - INFO - Task initialized: uuid=9cd6c547-5d0c-4fe3-aa0e-5faf3f600465, name='test-container-1', state=COMPLETED, image='strm/helloworld-http'
+2025-07-03 03:17:12 - qubik.task.task - DEBUG - Task 9cd6c547-5d0c-4fe3-aa0e-5faf3f600465 associated with container_id: 4ef6d0789fcfd72fabe78ed4607d222a3f8343cd5623e4cfcd7fa773c8600393
+2025-07-03 03:17:12 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 9cd6c547) added to queue.
+2025-07-03 03:17:12 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 9cd6c547) with desired state: COMPLETED.
+2025-07-03 03:17:12 - qubik.worker.worker - DEBUG - Task 'test-container-1' (UUID: 9cd6c547) found in DB. Current state: RUNNING.
+2025-07-03 03:17:12 - qubik.worker.worker - INFO - Worker 'test-worker-1': Stopping task 'test-container-1' (UUID: 9cd6c547) as desired state is COMPLETED.
+2025-07-03 03:17:12 - qubik.worker.worker - DEBUG - stop_task: Stopping task_id=9cd6c547-5d0c-4fe3-aa0e-5faf3f600465 ('test-container-1')
+2025-07-03 03:17:12 - qubik.worker.worker - INFO - Worker 'test-worker-1': I will stop task 'test-container-1'.
+2025-07-03 03:17:12 - qubik.task.config - INFO - Config created: test-container-1-9cd6c547 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:17:12 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:17:12 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:20:05 - qubik - INFO - Logging configured
+2025-07-03 03:20:05 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:20:05 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:20:05 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:20:05 - qubik.task.task - INFO - Task initialized: uuid=24615c10-d5b3-4c09-a75b-438e549fbe85, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:20:05 - qubik.main - INFO - Created initial task for starting: Task(uuid=24615c10..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:20:05 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:20:05 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 24615c10) added to queue.
+2025-07-03 03:20:05 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 24615c10) with desired state: SCHEDULED.
+2025-07-03 03:20:05 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 24615c10) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:20:05 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: 24615c10) as desired state is SCHEDULED.
+2025-07-03 03:20:05 - qubik.worker.worker - DEBUG - start_task: Starting task_id=24615c10-d5b3-4c09-a75b-438e549fbe85 ('test-container-1')
+2025-07-03 03:20:05 - qubik.task.config - INFO - Config created: test-container-1-24615c10 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:20:05 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:20:05 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:20:05 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-24615c10' with image 'strm/helloworld-http'
+2025-07-03 03:20:05 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-24615c10' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-24615c10', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 134217728, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - Container 'test-container-1-24615c10' created with ID: e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - Starting container 'e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453'...
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - Container 'e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453' started successfully.
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - Logs for container 'e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453':
+
+2025-07-03 03:20:07 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453) - Result: success
+2025-07-03 03:20:07 - qubik.worker.worker - INFO - Worker 'test-worker-1': Started task 'test-container-1' (Container ID: e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453).
+2025-07-03 03:20:07 - qubik.main - INFO - Task 24615c10 is running in container e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453
+2025-07-03 03:20:07 - qubik.main - INFO - Sleeping for 10 seconds to allow container to run...
+2025-07-03 03:20:17 - qubik.main - INFO - --- Stopping Task 24615c10 ---
+2025-07-03 03:20:17 - qubik.task.task - INFO - Task initialized: uuid=24615c10-d5b3-4c09-a75b-438e549fbe85, name='test-container-1', state=COMPLETED, image='strm/helloworld-http'
+2025-07-03 03:20:17 - qubik.task.task - DEBUG - Task 24615c10-d5b3-4c09-a75b-438e549fbe85 associated with container_id: e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453
+2025-07-03 03:20:17 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 24615c10) added to queue.
+2025-07-03 03:20:17 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 24615c10) with desired state: COMPLETED.
+2025-07-03 03:20:17 - qubik.worker.worker - DEBUG - Task 'test-container-1' (UUID: 24615c10) found in DB. Current state: RUNNING.
+2025-07-03 03:20:17 - qubik.worker.worker - INFO - Worker 'test-worker-1': Stopping task 'test-container-1' (UUID: 24615c10) as desired state is COMPLETED.
+2025-07-03 03:20:17 - qubik.worker.worker - DEBUG - stop_task: Stopping task_id=24615c10-d5b3-4c09-a75b-438e549fbe85 ('test-container-1')
+2025-07-03 03:20:17 - qubik.worker.worker - INFO - Worker 'test-worker-1': I will stop task 'test-container-1'.
+2025-07-03 03:20:17 - qubik.task.config - INFO - Config created: test-container-1-24615c10 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:20:17 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:20:17 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:20:17 - qubik.task.qubik_docker - WARNING - No container ID set for Docker object. Cannot stop an unmanaged container.
+2025-07-03 03:20:17 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'stop' (container_id: None) with error: No container ID to stop - Result: no_container_id
+2025-07-03 03:20:17 - qubik.worker.worker - ERROR - Error stopping container 'e0231cd66bdb01bcee9a9d107dfbf50178de80094e973c4851165001815f5453' for task 'test-container-1' (UUID: 24615c10-d5b3-4c09-a75b-438e549fbe85): No container ID to stop - Result: no_container_id
+2025-07-03 03:20:17 - qubik.main - CRITICAL - Error stopping task: No container ID to stop
+2025-07-03 03:25:42 - qubik - INFO - Logging configured
+2025-07-03 03:25:42 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:25:42 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:25:42 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:25:42 - qubik.task.task - INFO - Task initialized: uuid=20144655-36e4-427e-a5c8-2a35d4afbb03, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:25:42 - qubik.main - INFO - Created initial task for starting: Task(uuid=20144655..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:25:42 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:25:42 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 20144655) added to queue.
+2025-07-03 03:25:42 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 20144655) with desired state: SCHEDULED.
+2025-07-03 03:25:42 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 20144655) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:25:42 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: 20144655) as desired state is SCHEDULED.
+2025-07-03 03:25:42 - qubik.worker.worker - DEBUG - start_task: Starting task_id=20144655-36e4-427e-a5c8-2a35d4afbb03 ('test-container-1')
+2025-07-03 03:25:42 - qubik.task.config - INFO - Config created: test-container-1-20144655 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:25:42 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:25:42 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:25:42 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-20144655' with image 'strm/helloworld-http'
+2025-07-03 03:25:42 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-20144655' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-20144655', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 134217728, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - Container 'test-container-1-20144655' created with ID: b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - Starting container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69'...
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - Container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69' started successfully.
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - Logs for container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69':
+
+2025-07-03 03:25:44 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69) - Result: success
+2025-07-03 03:25:44 - qubik.worker.worker - INFO - Worker 'test-worker-1': Started task 'test-container-1' (Container ID: b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69).
+2025-07-03 03:25:44 - qubik.main - INFO - Task 20144655 is running in container b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69
+2025-07-03 03:25:44 - qubik.main - INFO - Sleeping for 10 seconds to allow container to run...
+2025-07-03 03:25:54 - qubik.main - INFO - --- Stopping Task 20144655 ---
+2025-07-03 03:25:54 - qubik.task.task - INFO - Task initialized: uuid=20144655-36e4-427e-a5c8-2a35d4afbb03, name='test-container-1', state=COMPLETED, image='strm/helloworld-http'
+2025-07-03 03:25:54 - qubik.task.task - DEBUG - Task 20144655-36e4-427e-a5c8-2a35d4afbb03 associated with container_id: b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69
+2025-07-03 03:25:54 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 20144655) added to queue.
+2025-07-03 03:25:54 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 20144655) with desired state: COMPLETED.
+2025-07-03 03:25:54 - qubik.worker.worker - DEBUG - Task 'test-container-1' (UUID: 20144655) found in DB. Current state: RUNNING.
+2025-07-03 03:25:54 - qubik.worker.worker - INFO - Worker 'test-worker-1': Stopping task 'test-container-1' (UUID: 20144655) as desired state is COMPLETED.
+2025-07-03 03:25:54 - qubik.worker.worker - DEBUG - stop_task: Stopping task_id=20144655-36e4-427e-a5c8-2a35d4afbb03 ('test-container-1')
+2025-07-03 03:25:54 - qubik.worker.worker - INFO - Worker 'test-worker-1': I will stop task 'test-container-1'.
+2025-07-03 03:25:54 - qubik.task.config - INFO - Config created: test-container-1-20144655 (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:25:54 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:25:54 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:25:54 - qubik.task.qubik_docker - INFO - Attempting to stop and remove container: 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69'
+2025-07-03 03:25:54 - qubik.task.qubik_docker - INFO - Stopping container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69'...
+2025-07-03 03:26:05 - qubik.task.qubik_docker - INFO - Container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69' stopped successfully.
+2025-07-03 03:26:05 - qubik.task.qubik_docker - INFO - Removing container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69'...
+2025-07-03 03:26:05 - qubik.task.qubik_docker - INFO - Container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69' removed successfully.
+2025-07-03 03:26:05 - qubik.task.qubik_docker - INFO - DockerResult created for action 'stop' (container_id: None) - Result: success
+2025-07-03 03:26:05 - qubik.worker.worker - INFO - Stopped and removed container 'b208b79c4381e777926ea62193daba1d9a9144c012f6a01f1747167a1f3b9b69' for task 'test-container-1' (UUID: 20144655-36e4-427e-a5c8-2a35d4afbb03)
+2025-07-03 03:26:05 - qubik.main - INFO - Task 20144655 successfully processed for stopping.
+2025-07-03 03:26:05 - qubik.main - INFO - Orchestrator Core Test Script Finished Successfully.
+2025-07-03 03:26:19 - qubik - INFO - Logging configured
+2025-07-03 03:26:19 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 03:26:19 - qubik.worker.worker - INFO - Initializing Worker: name='test-worker-1'
+2025-07-03 03:26:19 - qubik.main - INFO - Worker 'test-worker-1' initialized.
+2025-07-03 03:26:19 - qubik.task.task - INFO - Task initialized: uuid=3ef42b7f-9498-4ddf-bbc8-bd5e69a7f46a, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-03 03:26:19 - qubik.main - INFO - Created initial task for starting: Task(uuid=3ef42b7f..., name='test-container-1', state=SCHEDULED)
+2025-07-03 03:26:19 - qubik.main - INFO - --- Starting Task ---
+2025-07-03 03:26:19 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 3ef42b7f) added to queue.
+2025-07-03 03:26:19 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 3ef42b7f) with desired state: SCHEDULED.
+2025-07-03 03:26:19 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 3ef42b7f) not found in DB. Assuming initial state PENDING.
+2025-07-03 03:26:19 - qubik.worker.worker - INFO - Worker 'test-worker-1': Starting task 'test-container-1' (UUID: 3ef42b7f) as desired state is SCHEDULED.
+2025-07-03 03:26:19 - qubik.worker.worker - DEBUG - start_task: Starting task_id=3ef42b7f-9498-4ddf-bbc8-bd5e69a7f46a ('test-container-1')
+2025-07-03 03:26:19 - qubik.task.config - INFO - Config created: test-container-1-3ef42b7f (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:26:19 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:26:19 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:26:19 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-1-3ef42b7f' with image 'strm/helloworld-http'
+2025-07-03 03:26:19 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-03 03:26:20 - qubik.task.qubik_docker - INFO - Image 'strm/helloworld-http' pulled successfully.
+2025-07-03 03:26:20 - qubik.task.qubik_docker - INFO - Creating container 'test-container-1-3ef42b7f' with config: {'image': 'strm/helloworld-http', 'environment': [], 'name': 'test-container-1-3ef42b7f', 'restart_policy': {'Name': 'no'}, 'publish_all_ports': True, 'mem_limit': 134217728, 'nano_cpus': 100000000, 'tty': False}
+2025-07-03 03:26:20 - qubik.task.qubik_docker - INFO - Container 'test-container-1-3ef42b7f' created with ID: 62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108
+2025-07-03 03:26:20 - qubik.task.qubik_docker - INFO - Starting container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108'...
+2025-07-03 03:26:21 - qubik.task.qubik_docker - INFO - Container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108' started successfully.
+2025-07-03 03:26:21 - qubik.task.qubik_docker - INFO - Logs for container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108':
+
+2025-07-03 03:26:21 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: 62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108) - Result: success
+2025-07-03 03:26:21 - qubik.worker.worker - INFO - Worker 'test-worker-1': Started task 'test-container-1' (Container ID: 62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108).
+2025-07-03 03:26:21 - qubik.main - INFO - Task 3ef42b7f is running in container 62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108
+2025-07-03 03:26:21 - qubik.main - INFO - Sleeping for 10 seconds to allow container to run...
+2025-07-03 03:26:31 - qubik.main - INFO - --- Stopping Task 3ef42b7f ---
+2025-07-03 03:26:31 - qubik.task.task - INFO - Task initialized: uuid=3ef42b7f-9498-4ddf-bbc8-bd5e69a7f46a, name='test-container-1', state=COMPLETED, image='strm/helloworld-http'
+2025-07-03 03:26:31 - qubik.task.task - DEBUG - Task 3ef42b7f-9498-4ddf-bbc8-bd5e69a7f46a associated with container_id: 62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108
+2025-07-03 03:26:31 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 3ef42b7f) added to queue.
+2025-07-03 03:26:31 - qubik.worker.worker - INFO - Dequeued task 'test-container-1' (UUID: 3ef42b7f) with desired state: COMPLETED.
+2025-07-03 03:26:31 - qubik.worker.worker - DEBUG - Task 'test-container-1' (UUID: 3ef42b7f) found in DB. Current state: RUNNING.
+2025-07-03 03:26:31 - qubik.worker.worker - INFO - Worker 'test-worker-1': Stopping task 'test-container-1' (UUID: 3ef42b7f) as desired state is COMPLETED.
+2025-07-03 03:26:31 - qubik.worker.worker - DEBUG - stop_task: Stopping task_id=3ef42b7f-9498-4ddf-bbc8-bd5e69a7f46a ('test-container-1')
+2025-07-03 03:26:31 - qubik.worker.worker - INFO - Worker 'test-worker-1': I will stop task 'test-container-1'.
+2025-07-03 03:26:31 - qubik.task.config - INFO - Config created: test-container-1-3ef42b7f (image: strm/helloworld-http)
+Config details - CPU: 0.1, Memory: 134217728, Disk: 100, Ports: []
+2025-07-03 03:26:31 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-03 03:26:31 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 03:26:31 - qubik.task.qubik_docker - INFO - Attempting to stop and remove container: '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108'
+2025-07-03 03:26:31 - qubik.task.qubik_docker - INFO - Stopping container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108'...
+2025-07-03 03:26:41 - qubik.task.qubik_docker - INFO - Container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108' stopped successfully.
+2025-07-03 03:26:41 - qubik.task.qubik_docker - INFO - Removing container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108'...
+2025-07-03 03:26:41 - qubik.task.qubik_docker - INFO - Container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108' removed successfully.
+2025-07-03 03:26:41 - qubik.task.qubik_docker - INFO - DockerResult created for action 'stop' (container_id: None) - Result: success
+2025-07-03 03:26:41 - qubik.worker.worker - INFO - Stopped and removed container '62e38f2d50bd7da4cc26a39db199facf499cab6976db716c00fd6bc09da66108' for task 'test-container-1' (UUID: 3ef42b7f-9498-4ddf-bbc8-bd5e69a7f46a)
+2025-07-03 03:26:41 - qubik.main - INFO - Task 3ef42b7f successfully processed for stopping.
+2025-07-03 03:26:41 - qubik.main - INFO - Orchestrator Core Test Script Finished Successfully.

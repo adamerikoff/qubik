@@ -1,6 +1,8 @@
 import typing
 import logging
 
+from .task import Task
+
 logger = logging.getLogger(__name__)
 
 class Config:
@@ -38,4 +40,21 @@ class Config:
                 f"attach_stderr={self.attach_stderr}, exposed_ports={self.exposed_ports}, "
                 f"cmd={self.cmd}, image='{self.image}', cpu={self.cpu}, memory={self.memory}, "
                 f"disk={self.disk}, env={self.env})")
-        
+    
+    @classmethod
+    def from_task(cls, task: Task) -> 'Config':
+        config_name = f"{task.name}-{task.task_uuid.hex[:8]}"
+        return cls(
+            restart_policy=task.restart_policy,
+            name=config_name,
+            attach_stdin=False,
+            attach_stdout=True,
+            attach_stderr=True,
+            exposed_ports=task.exposed_ports,
+            cmd=[],
+            image=task.image,
+            cpu=task.cpu,
+            memory=task.memory,
+            disk=task.disk,
+            env=[]
+        )
