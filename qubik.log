@@ -1,0 +1,387 @@
+2025-07-03 00:12:52 - qubik - INFO - Logging configured
+2025-07-03 00:12:52 - qubik.main - INFO - Main.py
+2025-07-03 00:12:52 - qubik.task.task - INFO - Task initialized: uuid=79400df8-51db-4f5c-8d6a-9659fe35d1a6, name='Task-1', state=PENDING, image='Image-1'
+2025-07-03 00:12:52 - qubik.task.task_event - INFO - TaskEvent created: event_id=bfa7e35e-8cfa-4b61-9e13-778c73a56b49, target_state=PENDING, timestamp=2025-07-03 00:12:52, task_uuid=79400df8-51db-4f5c-8d6a-9659fe35d1a6, task_name='Task-1'
+2025-07-03 00:12:52 - qubik.worker.worker - INFO - Initializing Worker: name='worker-1'
+2025-07-03 00:12:52 - qubik.worker.worker - DEBUG - collect_stats: Collecting stats for worker='worker-1'
+2025-07-03 00:12:52 - qubik.worker.worker - DEBUG - _start_task: Starting task_id=79400df8-51db-4f5c-8d6a-9659fe35d1a6 ('Task-1')
+2025-07-03 00:12:52 - qubik.worker.worker - INFO - run_task: Processing task_event (task='Task-1', target_state='PENDING')
+2025-07-03 00:12:52 - qubik.worker.worker - DEBUG - _stop_task: Stopping task_id=79400df8-51db-4f5c-8d6a-9659fe35d1a6 ('Task-1')
+2025-07-03 00:12:52 - qubik.manager.manager - INFO - Initializing Manager: name='manager-1'
+2025-07-03 00:12:52 - qubik.manager.manager - DEBUG - select_worker: Selecting worker for task_id=79400df8-51db-4f5c-8d6a-9659fe35d1a6
+2025-07-03 00:12:52 - qubik.manager.manager - DEBUG - update_tasks: Updating 0 pending tasks
+2025-07-03 00:12:52 - qubik.node.node - INFO - Node initialized: Node-1 (IP: 192.168.1.1, Role: worker)
+Node details - Cores: 4, Memory: 1024MB, Disk: 25GB
+2025-07-03 00:13:35 - qubik - INFO - Logging configured
+2025-07-03 00:13:35 - qubik.main - INFO - Main.py
+2025-07-03 00:16:20 - qubik - INFO - Logging configured
+2025-07-03 00:16:20 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:16:20 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:16:20 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:19:35 - qubik - INFO - Logging configured
+2025-07-03 00:19:35 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:19:35 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:19:35 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:19:58 - qubik - INFO - Logging configured
+2025-07-03 00:19:58 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:19:58 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:19:58 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:19:58 - qubik.task.config - INFO - Config created: test-container-4c4e67b7 (image: postgres:13)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
+2025-07-03 00:19:58 - qubik.main - ERROR - An unexpected error occurred during Docker manager initialization or container run.
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/transport/unixconn.py", line 26, in connect
+    sock.connect(self.unix_socket)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/util/util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/transport/unixconn.py", line 26, in connect
+    sock.connect(self.unix_socket)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.ProtocolError: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 223, in _retrieve_server_version
+    return self.version(api_version=False)["ApiVersion"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/daemon.py", line 181, in version
+    return self._result(self._get(url), json=True)
+                        ~~~~~~~~~^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/utils/decorators.py", line 44, in inner
+    return f(self, *args, **kwargs)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 246, in _get
+    return self.get(url, **self._set_request_timeout(kwargs))
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/adapters.py", line 682, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/src/qubik/main.py", line 37, in create_and_run_task_container
+    docker_manager_instance = Docker(task_config)
+  File "/Users/adamerik/Documents/code/qubik/src/qubik/task/qubik_docker.py", line 48, in __init__
+    self.client: docker.DockerClient = client if client else docker.from_env()
+                                                             ~~~~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/client.py", line 94, in from_env
+    return cls(
+        timeout=timeout,
+    ...<3 lines>...
+        **kwargs_from_env(**kwargs)
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/client.py", line 45, in __init__
+    self.api = APIClient(*args, **kwargs)
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 207, in __init__
+    self._version = self._retrieve_server_version()
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 230, in _retrieve_server_version
+    raise DockerException(
+        f'Error while fetching server API version: {e}'
+    ) from e
+docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+2025-07-03 00:19:58 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'start' (container_id: None) with error: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory')) - Result: initialization_or_run_failure
+2025-07-03 00:19:58 - qubik.main - CRITICAL - Critical error: Failed to create and run container. Exiting.
+2025-07-03 00:20:03 - qubik - INFO - Logging configured
+2025-07-03 00:20:03 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:20:03 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:20:03 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:20:03 - qubik.task.config - INFO - Config created: test-container-aab73eca (image: postgres:13)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
+2025-07-03 00:20:03 - qubik.main - ERROR - An unexpected error occurred during Docker manager initialization or container run.
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/transport/unixconn.py", line 26, in connect
+    sock.connect(self.unix_socket)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/adapters.py", line 667, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/util/retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/util/util.py", line 38, in reraise
+    raise value.with_traceback(tb)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/urllib3/connection.py", line 494, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/transport/unixconn.py", line 26, in connect
+    sock.connect(self.unix_socket)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.ProtocolError: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 223, in _retrieve_server_version
+    return self.version(api_version=False)["ApiVersion"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/daemon.py", line 181, in version
+    return self._result(self._get(url), json=True)
+                        ~~~~~~~~~^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/utils/decorators.py", line 44, in inner
+    return f(self, *args, **kwargs)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 246, in _get
+    return self.get(url, **self._set_request_timeout(kwargs))
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/requests/adapters.py", line 682, in send
+    raise ConnectionError(err, request=request)
+requests.exceptions.ConnectionError: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/adamerik/Documents/code/qubik/src/qubik/main.py", line 37, in create_and_run_task_container
+    docker_manager_instance = Docker(task_config)
+  File "/Users/adamerik/Documents/code/qubik/src/qubik/task/qubik_docker.py", line 48, in __init__
+    self.client: docker.DockerClient = client if client else docker.from_env()
+                                                             ~~~~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/client.py", line 94, in from_env
+    return cls(
+        timeout=timeout,
+    ...<3 lines>...
+        **kwargs_from_env(**kwargs)
+    )
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/client.py", line 45, in __init__
+    self.api = APIClient(*args, **kwargs)
+               ~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 207, in __init__
+    self._version = self._retrieve_server_version()
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/Users/adamerik/Documents/code/qubik/.venv/lib/python3.13/site-packages/docker/api/client.py", line 230, in _retrieve_server_version
+    raise DockerException(
+        f'Error while fetching server API version: {e}'
+    ) from e
+docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
+2025-07-03 00:20:03 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'start' (container_id: None) with error: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory')) - Result: initialization_or_run_failure
+2025-07-03 00:20:03 - qubik.main - CRITICAL - Critical error: Failed to create and run container. Exiting.
+2025-07-03 00:21:30 - qubik - INFO - Logging configured
+2025-07-03 00:21:30 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:21:30 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:21:30 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:21:30 - qubik.task.config - INFO - Config created: test-container-f7670958 (image: postgres:13)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
+2025-07-03 00:21:30 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'postgres:13'
+2025-07-03 00:21:30 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 00:21:30 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-f7670958' with image 'postgres:13'
+2025-07-03 00:21:30 - qubik.task.qubik_docker - INFO - Pulling image: 'postgres:13'...
+2025-07-03 00:21:49 - qubik.task.qubik_docker - INFO - Image 'postgres:13' pulled successfully.
+2025-07-03 00:21:49 - qubik.task.qubik_docker - INFO - Creating container 'test-container-f7670958' with config: {'image': 'postgres:13', 'environment': ['POSTGRES_USER=cube', 'POSTGRES_PASSWORD=secret'], 'name': 'test-container-f7670958', 'restart_policy': {'Name': 'on-failure'}, 'publish_all_ports': True, 'mem_limit': 268435456, 'nano_cpus': 500000000, 'attach_stdin': False, 'attach_stdout': True, 'attach_stderr': True, 'tty': False}
+2025-07-03 00:21:49 - qubik.task.qubik_docker - ERROR - An unexpected error occurred during container creation for 'test-container-f7670958': run() got unexpected keyword arguments 'attach_stderr', 'attach_stdin', 'attach_stdout'
+2025-07-03 00:21:49 - qubik.task.qubik_docker - ERROR - DockerResult created for action 'start' (container_id: None) with error: run() got unexpected keyword arguments 'attach_stderr', 'attach_stdin', 'attach_stdout' - Result: unexpected_error
+2025-07-03 00:21:49 - qubik.main - ERROR - Container creation failed: run() got unexpected keyword arguments 'attach_stderr', 'attach_stdin', 'attach_stdout'
+2025-07-03 00:21:49 - qubik.main - CRITICAL - Critical error: Failed to create and run container. Exiting.
+2025-07-03 00:26:08 - qubik - INFO - Logging configured
+2025-07-03 00:26:08 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:26:08 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:26:08 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:26:08 - qubik.task.config - INFO - Config created: test-container-4482f92a (image: postgres:13)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
+2025-07-03 00:26:08 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'postgres:13'
+2025-07-03 00:26:08 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 00:26:08 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-4482f92a' with image 'postgres:13'
+2025-07-03 00:26:08 - qubik.task.qubik_docker - INFO - Pulling image: 'postgres:13'...
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - Image 'postgres:13' pulled successfully.
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - Creating container 'test-container-4482f92a' with config: {'image': 'postgres:13', 'environment': ['POSTGRES_USER=cube', 'POSTGRES_PASSWORD=secret'], 'name': 'test-container-4482f92a', 'restart_policy': {'Name': 'on-failure'}, 'publish_all_ports': True, 'mem_limit': 268435456, 'nano_cpus': 500000000, 'tty': False}
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - Container 'test-container-4482f92a' created with ID: 14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - Starting container '14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf'...
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - Container '14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf' started successfully.
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - Logs for container '14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf':
+
+2025-07-03 00:26:10 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: 14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf) - Result: success
+2025-07-03 00:26:10 - qubik.main - INFO - Container 'test-container-4482f92a' (ID: 14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf) is running.
+2025-07-03 00:26:10 - qubik.main - INFO - Container '14bcba279fb5f0206a8e1dfed27c1ae4c00c8fee872565204a28b83d993d7fbf' is running. Waiting for 5 seconds...
+2025-07-03 00:27:26 - qubik - INFO - Logging configured
+2025-07-03 00:27:26 - qubik.main - INFO - Starting Orchestrator Core Test Script (main.py)
+2025-07-03 00:27:26 - qubik.main - INFO - 
+--- Phase 1: Creating and Running a Test Container ---
+2025-07-03 00:27:26 - qubik.main - INFO - Setting up configuration for the test container...
+2025-07-03 00:27:26 - qubik.task.config - INFO - Config created: test-container-dacc5b9a (image: postgres:13)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 0, Ports: [5432]
+2025-07-03 00:27:26 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'postgres:13'
+2025-07-03 00:27:26 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-03 00:27:26 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-dacc5b9a' with image 'postgres:13'
+2025-07-03 00:27:26 - qubik.task.qubik_docker - INFO - Pulling image: 'postgres:13'...
+2025-07-03 00:27:43 - qubik.task.qubik_docker - INFO - Image 'postgres:13' pulled successfully.
+2025-07-03 00:27:43 - qubik.task.qubik_docker - INFO - Creating container 'test-container-dacc5b9a' with config: {'image': 'postgres:13', 'environment': ['POSTGRES_USER=cube', 'POSTGRES_PASSWORD=secret'], 'name': 'test-container-dacc5b9a', 'restart_policy': {'Name': 'on-failure'}, 'publish_all_ports': True, 'mem_limit': 268435456, 'nano_cpus': 500000000, 'tty': False}
+2025-07-03 00:27:43 - qubik.task.qubik_docker - INFO - Container 'test-container-dacc5b9a' created with ID: 09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa
+2025-07-03 00:27:43 - qubik.task.qubik_docker - INFO - Starting container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa'...
+2025-07-03 00:27:44 - qubik.task.qubik_docker - INFO - Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' started successfully.
+2025-07-03 00:27:44 - qubik.task.qubik_docker - INFO - Logs for container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa':
+
+2025-07-03 00:27:44 - qubik.task.qubik_docker - INFO - DockerResult created for action 'start' (container_id: 09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa) - Result: success
+2025-07-03 00:27:44 - qubik.main - INFO - Container 'test-container-dacc5b9a' (ID: 09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa) is running.
+2025-07-03 00:27:44 - qubik.main - INFO - Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' is running. Waiting for 5 seconds...
+2025-07-03 00:27:49 - qubik.main - INFO - 
+--- Phase 2: Stopping and Removing Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' ---
+2025-07-03 00:27:49 - qubik.main - INFO - Attempting to stop and remove container: '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa'
+2025-07-03 00:27:49 - qubik.task.qubik_docker - INFO - Attempting to stop and remove container: '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa'
+2025-07-03 00:27:49 - qubik.task.qubik_docker - INFO - Stopping container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa'...
+2025-07-03 00:27:49 - qubik.task.qubik_docker - INFO - Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' stopped successfully.
+2025-07-03 00:27:49 - qubik.task.qubik_docker - INFO - Removing container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa'...
+2025-07-03 00:27:49 - qubik.task.qubik_docker - INFO - Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' removed successfully.
+2025-07-03 00:27:49 - qubik.task.qubik_docker - INFO - DockerResult created for action 'stop' (container_id: None) - Result: success
+2025-07-03 00:27:49 - qubik.main - INFO - Container '09415802d7970a30ed42888f4c2d60605cb538f879f909931000825700aeadaa' has been stopped and removed successfully.
+2025-07-03 00:27:49 - qubik.main - INFO - 
+Orchestrator Core Test Script Finished Successfully.
