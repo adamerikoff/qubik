@@ -7,5 +7,7 @@ __all__ = [
     "task_event_to_api_schema",
     "task_to_api_schema",
     "api_schema_to_task",
-    "api_schema_to_task_event"
+    "api_schema_to_task_event",
+    "global_worker",
+    "app"
 ]

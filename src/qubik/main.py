@@ -1,8 +1,4 @@
-import uuid
 import time
-import datetime
-import sys
-import typing
 import logging
 import threading
 import os
@@ -41,6 +37,9 @@ def main():
     worker_thread = threading.Thread(target=run_tasks, args=(worker_instance,), daemon=True)
     worker_thread.start()
     logger.info("Worker task processing loop started in a background thread.")
+
+    worker_instance.start_metrics_collection(interval_seconds=15)
+    logger.info("Worker metrics collection started in a background thread.")
 
     logger.info(f"Starting FastAPI API server on {host}:{port}")
     uvicorn.run(qubik.app, host=host, port=port)

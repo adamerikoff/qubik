@@ -5,6 +5,7 @@ import logging
 from .node import Node
 from .task import Task, State, TaskEvent, Config, Docker, DockerResult, state_contains, valid_state_transition
 from .manager import Manager
+from .metrics import MetricsCollector, MemoryMetrics, DiskMetrics, WorkerMetrics, LoadAvgMetrics
 from .worker import Worker
 from .scheduler import Scheduler
 from .api import app, global_worker, task_event_to_api_schema, task_to_api_schema, TaskApiSchema, TaskEventApiSchema, api_schema_to_task, api_schema_to_task_event
@@ -29,8 +30,12 @@ __all__ = [
     "TaskApiSchema", 
     "TaskEventApiSchema", 
     "api_schema_to_task", 
-    "api_schema_to_task_event"  
-
+    "api_schema_to_task_event",
+    "MetricsCollector", 
+    "MemoryMetrics", 
+    "DiskMetrics", 
+    "WorkerMetrics", 
+    "LoadAvgMetrics" 
 ]
 __version__ = "0.1.0"
 

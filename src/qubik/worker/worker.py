@@ -4,8 +4,9 @@ import collections
 import logging
 import datetime
 import time
+import threading
 
-from qubik import Task, TaskEvent, DockerResult, Config, Docker, State, valid_state_transition
+from qubik import Task, TaskEvent, DockerResult, Config, Docker, State, valid_state_transition, MetricsCollector, WorkerMetrics
 
 logger = logging.getLogger(__name__)
 
@@ -14,8 +15,43 @@ class Worker:
         self.name: str = name
         self.queue: collections.deque[TaskEvent] = collections.deque()
         self.db: typing.Dict[uuid.UUID, Task] = {}
-        
+
+        self.metrics_collector = MetricsCollector()
+        self.current_metrics: WorkerMetrics = self.metrics_collector.collect_all_metrics(task_count=len(self.db))
+        self._metrics_thread: typing.Optional[threading.Thread] = None
+        self._stop_metrics_event = threading.Event()
+
         logger.info("Initializing Worker: name='%s'", name)
+
+    def _periodic_metrics_collection(self, interval_seconds: int):
+        while not self._stop_metrics_event.is_set():
+            logger.debug("Collecting stats for worker '%s'", self.name)
+            current_task_count = len(self.db)
+            self.current_metrics = self.metrics_collector.collect_all_metrics(
+                task_count=current_task_count
+            )
+            self._stop_metrics_event.wait(interval_seconds)
+
+    def start_metrics_collection(self, interval_seconds: int = 15):
+        if self._metrics_thread is None or not self._metrics_thread.is_alive():
+            self._stop_metrics_event.clear()
+            self._metrics_thread = threading.Thread(
+                target=self._periodic_metrics_collection,
+                args=(interval_seconds,),
+                daemon=True
+            )
+            self._metrics_thread.start()
+            logger.info("Started background metrics collection for worker '%s'", self.name)
+
+    def stop_metrics_collection(self):
+        if self._metrics_thread and self._metrics_thread.is_alive():
+            logger.info("Signaling metrics collection thread to stop...")
+            self._stop_metrics_event.set()
+            self._metrics_thread.join(timeout=5)
+            if self._metrics_thread.is_alive():
+                logger.warning("Metrics collection thread did not stop gracefully. It might still be running.")
+            else:
+                logger.info("Metrics collection thread stopped.")
 
     def __repr__(self) -> str:
         return (f"Worker(name='{self.name}', "

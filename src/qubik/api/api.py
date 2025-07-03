@@ -2,13 +2,14 @@ import logging
 import uuid
 import typing
 import copy
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.responses import Response
 
-from qubik import State, Task, Worker
+from qubik import State, Worker, WorkerMetrics
 
-from .schemas import TaskApiSchema, TaskEventApiSchema, api_schema_to_task, task_to_api_schema, api_schema_to_task_event, task_event_to_api_schema
+from .schemas import TaskApiSchema, TaskEventApiSchema, task_to_api_schema, api_schema_to_task_event
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +29,36 @@ app = FastAPI(
     description="API for managing tasks on a Qubik worker.",
     version="0.1.0",
 )
+
+# --- NEW: Lifespan Event Handler ---
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("FastAPI application startup (lifespan) event triggered.")
+    
+    # Startup logic
+    if global_worker:
+        # Ensure metrics collection is started.
+        # This will create and start the metrics collection thread.
+        global_worker.start_metrics_collection(interval_seconds=15)
+        logger.info("Ensured worker metrics collection started during FastAPI lifespan startup.")
+    else:
+        logger.warning("global_worker is None at FastAPI lifespan startup. Metrics collection might not start.")
+    
+    yield # Application will now start processing requests
+
+    # Shutdown logic (executed after `yield` when the server is shutting down)
+    logger.info("FastAPI application shutdown (lifespan) event triggered.")
+    if global_worker:
+        global_worker.stop_metrics_collection()
+        logger.info("Worker metrics collection gracefully stopped.")
+        # Any other shutdown tasks for the worker should go here
+    else:
+        logger.warning("global_worker is None at FastAPI lifespan shutdown. No worker to stop.")
+
+@app.get("/stats", response_model=WorkerMetrics, summary="Get worker performance metrics")
+async def get_stats_handler(worker: Worker = Depends(get_worker)):
+    logger.debug("Received request to get worker stats.")
+    return worker.current_metrics
 
 @app.post("/tasks", response_model=TaskApiSchema, status_code=status.HTTP_201_CREATED)
 async def start_task_handler(task_event_api: TaskEventApiSchema, worker: Worker = Depends(get_worker)):
