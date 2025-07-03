@@ -4,73 +4,46 @@ import datetime
 import sys
 import typing
 import logging
+import threading
+import os
 
-from qubik import Task, State, TaskEvent, Manager, Scheduler, Node, Worker, DockerResult, Docker, Config
+import uvicorn
+
+import qubik
 
 logger = logging.getLogger(__name__)
+
+def run_tasks(worker_instance: qubik.Worker):
+    logger.info("Starting worker task processing loop...")
+    while True:
+        if len(worker_instance.queue) > 0:
+            worker_instance.run_task()
+        else:
+            logger.debug("Queue is empty, sleeping...")
+            time.sleep(5)
 
 def main():
     logger.info("Starting Orchestrator Core Test Script (main.py)")
 
-    worker = Worker(name="test-worker-1")
-    logger.info(f"Worker '{worker.name}' initialized.")
+    host = os.getenv("CUBE_HOST", "127.0.0.1")  # Default to localhost if not set
+    port_str = os.getenv("CUBE_PORT", "5555")   # Default port
+        
+    try:
+        port = int(port_str)
+    except ValueError:
+        logger.error(f"Invalid CUBE_PORT environment variable: {port_str}. Using default 5555.")
+        port = 5555
 
-    start_task = Task(
-        task_uuid=uuid.uuid4(),
-        name="test-container-1",
-        state=State.SCHEDULED,
-        image="strm/helloworld-http",
-        cpu=0.1,
-        memory=128 * 1024 * 1024,
-        disk=100,
-        exposed_ports=[],
-        port_bindings={},
-        restart_policy="no"
-    )
-    logger.info(f"Created initial task for starting: {start_task}")
+    worker_instance = qubik.Worker("test-worker")
 
-    logger.info("--- Starting Task ---")
+    qubik.api.api.global_worker = worker_instance
 
-    worker.add_task(start_task)
+    worker_thread = threading.Thread(target=run_tasks, args=(worker_instance,), daemon=True)
+    worker_thread.start()
+    logger.info("Worker task processing loop started in a background thread.")
 
-    start_result = worker.run_task()
-
-    if start_result.error:
-        logger.critical(f"Error starting task: {start_result.error}")
-        raise start_result.error
-
-    start_task.container_id = start_result.container_id
-    start_task.state = State.RUNNING
-    logger.info(f"Task {start_task.task_uuid.hex[:8]} is running in container {start_task.container_id}")
-
-    logger.info("Sleeping for 10 seconds to allow container to run...")
-    time.sleep(10)
-
-    logger.info(f"--- Stopping Task {start_task.task_uuid.hex[:8]} ---")
-
-    stop_task_request = Task(
-        task_uuid=start_task.task_uuid,
-        name=start_task.name,
-        state=State.COMPLETED,
-        image=start_task.image,
-        cpu=start_task.cpu,
-        memory=start_task.memory,
-        disk=start_task.disk,
-        exposed_ports=start_task.exposed_ports,
-        port_bindings=start_task.port_bindings,
-        restart_policy=start_task.restart_policy,
-        container_id=start_task.container_id
-    )
-
-    worker.add_task(stop_task_request)
-
-    stop_result = worker.run_task()
-
-    if stop_result.error:
-        logger.critical(f"Error stopping task: {stop_result.error}")
-        raise stop_result.error
-
-    logger.info(f"Task {start_task.task_uuid.hex[:8]} successfully processed for stopping.")
+    logger.info(f"Starting FastAPI API server on {host}:{port}")
+    uvicorn.run(qubik.app, host=host, port=port)
 
     logger.info("Orchestrator Core Test Script Finished Successfully.")
 

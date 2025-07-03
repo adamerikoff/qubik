@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 class TaskEvent:
     def __init__(self,
                  event_id: uuid.UUID,
-                 state: State, # This is the TARGET state for the task
+                 state: State,
                  timestamp: datetime.datetime,
                  task: Task):
         self.event_id: uuid.UUID = event_id

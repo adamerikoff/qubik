@@ -7,6 +7,7 @@ from .task import Task, State, TaskEvent, Config, Docker, DockerResult, state_co
 from .manager import Manager
 from .worker import Worker
 from .scheduler import Scheduler
+from .api import app, global_worker, task_event_to_api_schema, task_to_api_schema, TaskApiSchema, TaskEventApiSchema, api_schema_to_task, api_schema_to_task_event
 
 __all__ = [
     "Node",
@@ -18,7 +19,18 @@ __all__ = [
     "Worker",
     "Config",
     "Docker",
-    "DockerResult"
+    "DockerResult",
+    "valid_state_transition",
+    "state_contains",
+    "app", 
+    "global_worker", 
+    "task_event_to_api_schema", 
+    "task_to_api_schema", 
+    "TaskApiSchema", 
+    "TaskEventApiSchema", 
+    "api_schema_to_task", 
+    "api_schema_to_task_event"  
+
 ]
 __version__ = "0.1.0"
 

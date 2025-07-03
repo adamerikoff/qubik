@@ -13,4 +13,4 @@ __all__ = [
     "DockerResult",
     "state_contains",
     "valid_state_transition"
-    ]
+]

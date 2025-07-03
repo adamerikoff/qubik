@@ -3,6 +3,7 @@ import typing
 import collections
 import logging
 import datetime
+import time
 
 from qubik import Task, TaskEvent, DockerResult, Config, Docker, State, valid_state_transition
 
@@ -24,6 +25,11 @@ class Worker:
     def collect_stats(self) -> None:
         logger.debug("collect_stats: Collecting stats for worker='%s'", self.name)
         print(f"Worker '{self.name}': I will collect stats.")
+
+    def get_tasks(self) -> typing.List[Task]:
+        logger.debug("get_tasks: Getting tasks for worker='%s'", self.name)
+        return list(self.db.values()) 
+
 
     def add_task(self, task_to_add: Task) -> None:
         self.queue.append(task_to_add)
