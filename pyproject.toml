@@ -7,11 +7,22 @@ requires-python = ">=3.13"
 dependencies = [
     "docker>=7.1.0",
     "fastapi>=0.115.14",
+    "httpx>=0.28.1",
     "psutil>=7.0.0",
     "pydantic>=2.11.7",
     "uvicorn>=0.35.0",
 ]
 license = {text = "MIT"}
 
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [project.scripts]
-qubik = "qubik.main:main"
+start = "qubik.main:main"
+
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["setuptools>=80.9.0"]
+build-backend = "setuptools.build_meta"

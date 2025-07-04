@@ -6,6 +6,13 @@ from pydantic import BaseModel, Field
 
 from qubik import Task, TaskEvent, State
 
+class ErrorResponse(BaseModel):
+    http_status_code: int = Field(alias="http_status_code")
+    message: str = Field(alias="message")
+    error: typing.Optional[str] = Field(None, alias="error")
+    class Config:
+        populate_by_name = True
+
 class TaskApiSchema(BaseModel):
     task_id: uuid.UUID = Field(default_factory=uuid.uuid4, alias="task_id", description="Unique identifier for the task.")
 

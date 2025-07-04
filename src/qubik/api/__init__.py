@@ -1,4 +1,4 @@
-from .schemas import TaskApiSchema, TaskEventApiSchema, task_event_to_api_schema, task_to_api_schema, api_schema_to_task, api_schema_to_task_event
+from .schemas import TaskApiSchema, TaskEventApiSchema, task_event_to_api_schema, task_to_api_schema, api_schema_to_task, api_schema_to_task_event, ErrorResponse
 from .api import global_worker, app
 
 __all__ = [
@@ -9,5 +9,6 @@ __all__ = [
     "api_schema_to_task",
     "api_schema_to_task_event",
     "global_worker",
-    "app"
+    "app",
+    "ErrorResponse"
 ]
