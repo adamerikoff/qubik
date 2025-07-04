@@ -1774,3 +1774,95 @@ Config details - CPU: 0.5, Memory: 268435456, Disk: 1, Ports: [80]
 2025-07-04 05:24:42 - qubik.main - DEBUG - Queue is empty, sleeping...
 2025-07-04 05:24:45 - qubik.main - INFO - KeyboardInterrupt detected. Initiating graceful shutdown.
 2025-07-04 05:24:45 - qubik.main - INFO - Orchestrator Core Test Script Finished.
+2025-07-04 05:42:00 - qubik - INFO - Logging configured
+2025-07-04 05:42:00 - qubik.main - INFO - Starting Cube Orchestrator (Worker + Manager)
+2025-07-04 05:42:00 - qubik.main - INFO - Configuring worker API to listen on localhost:5555
+2025-07-04 05:42:00 - qubik.main - INFO - Initializing Worker instance...
+2025-07-04 05:42:00 - qubik.worker.worker - INFO - Initializing Worker: name='worker_0'
+2025-07-04 05:42:17 - qubik - INFO - Logging configured
+2025-07-04 05:42:17 - qubik.main - INFO - Starting Cube Orchestrator (Worker + Manager)
+2025-07-04 05:42:17 - qubik.main - INFO - Configuring worker API to listen on localhost:5555
+2025-07-04 05:42:17 - qubik.main - INFO - Initializing Worker instance...
+2025-07-04 05:42:17 - qubik.worker.worker - INFO - Initializing Worker: name='worker_0'
+2025-07-04 05:42:17 - qubik.main - INFO - Worker instance assigned to FastAPI global worker.
+2025-07-04 05:42:17 - qubik.main - INFO - Initializing Manager instance...
+2025-07-04 05:42:17 - qubik.manager.manager - INFO - Initializing Manager: name='main-manager', initial_workers=['localhost:5555']
+2025-07-04 05:42:17 - qubik.main - INFO - Starting Worker components in separate threads...
+2025-07-04 05:42:17 - qubik.main - INFO - Starting worker task processing loop...
+2025-07-04 05:42:17 - qubik.main - INFO - WorkerRunThread started.
+2025-07-04 05:42:17 - qubik.main - DEBUG - Queue is empty, sleeping...
+2025-07-04 05:42:17 - qubik.main - INFO - Starting Worker API server on http://localhost:5555...
+2025-07-04 05:42:17 - qubik.main - INFO - WorkerApiThread started.
+2025-07-04 05:42:19 - qubik.main - INFO - Creating and sending 3 initial tasks to the Manager...
+2025-07-04 05:42:19 - qubik.task.task - INFO - Task initialized: uuid=9cfc8c19-5f12-4924-9e5f-1472a74eb7f1, name='test-container-0', state=PENDING, image='strm/helloworld-http'
+2025-07-04 05:42:19 - qubik.task.task_event - INFO - TaskEvent created: event_id=fab1f463-0ab0-4019-a3f5-f222e076c0b5, target_state=PENDING, timestamp=2025-07-04 00:42:19, task_uuid=9cfc8c19-5f12-4924-9e5f-1472a74eb7f1, task_name='test-container-0'
+2025-07-04 05:42:19 - qubik.manager.manager - INFO - Added task event fab1f463-0ab0-4019-a3f5-f222e076c0b5 (for task 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1) to pending queue.
+2025-07-04 05:42:19 - qubik.manager.manager - DEBUG - select_worker: Selecting worker for tasks
+2025-07-04 05:42:19 - qubik.manager.manager - DEBUG - select_worker: Selected worker=localhost:5555
+2025-07-04 05:42:19 - qubik.manager.manager - INFO - Pulled task event fab1f463-0ab0-4019-a3f5-f222e076c0b5 (for task 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1 - test-container-0) off pending queue
+2025-07-04 05:42:19 - qubik.worker.api - INFO - Received request to start task event ID: fab1f463-0ab0-4019-a3f5-f222e076c0b5
+2025-07-04 05:42:19 - qubik.task.task - INFO - Task initialized: uuid=9cfc8c19-5f12-4924-9e5f-1472a74eb7f1, name='test-container-0', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-04 05:42:19 - qubik.task.task_event - INFO - TaskEvent created: event_id=fab1f463-0ab0-4019-a3f5-f222e076c0b5, target_state=PENDING, timestamp=2025-07-04 00:42:19, task_uuid=9cfc8c19-5f12-4924-9e5f-1472a74eb7f1, task_name='test-container-0'
+2025-07-04 05:42:19 - qubik.worker.worker - INFO - Task 'test-container-0' (UUID: 9cfc8c19) added to queue.
+2025-07-04 05:42:19 - qubik.worker.api - INFO - Added task 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1 to worker queue.
+2025-07-04 05:42:19 - qubik.manager.manager - INFO - Successfully sent task 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1 to worker localhost:5555. Worker returned: task_id=UUID('9cfc8c19-5f12-4924-9e5f-1472a74eb7f1') name='test-container-0' state=1 image='strm/helloworld-http' cpu=0.5 memory=268435456 disk=1 restart_policy='no' exposed_ports=[80] port_bindings={8000: 80} container_id=None start_time=None finish_time=None
+2025-07-04 05:42:19 - qubik.task.task - INFO - Task initialized: uuid=9cfc8c19-5f12-4924-9e5f-1472a74eb7f1, name='test-container-0', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-04 05:42:19 - qubik.manager.manager - DEBUG - Manager's task_db updated for task 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1 with worker's response.
+2025-07-04 05:42:19 - qubik.main - INFO - Task 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1 added to manager's pending queue and manager attempted to send.
+2025-07-04 05:42:20 - qubik.task.task - INFO - Task initialized: uuid=261aadff-34b6-4644-829d-20fa2ac5cd98, name='test-container-1', state=PENDING, image='strm/helloworld-http'
+2025-07-04 05:42:20 - qubik.task.task_event - INFO - TaskEvent created: event_id=83bf602e-45e0-40b8-9261-da09d272d941, target_state=PENDING, timestamp=2025-07-04 00:42:20, task_uuid=261aadff-34b6-4644-829d-20fa2ac5cd98, task_name='test-container-1'
+2025-07-04 05:42:20 - qubik.manager.manager - INFO - Added task event 83bf602e-45e0-40b8-9261-da09d272d941 (for task 261aadff-34b6-4644-829d-20fa2ac5cd98) to pending queue.
+2025-07-04 05:42:20 - qubik.manager.manager - DEBUG - select_worker: Selecting worker for tasks
+2025-07-04 05:42:20 - qubik.manager.manager - DEBUG - select_worker: Selected worker=localhost:5555
+2025-07-04 05:42:20 - qubik.manager.manager - INFO - Pulled task event 83bf602e-45e0-40b8-9261-da09d272d941 (for task 261aadff-34b6-4644-829d-20fa2ac5cd98 - test-container-1) off pending queue
+2025-07-04 05:42:20 - qubik.worker.api - INFO - Received request to start task event ID: 83bf602e-45e0-40b8-9261-da09d272d941
+2025-07-04 05:42:20 - qubik.task.task - INFO - Task initialized: uuid=261aadff-34b6-4644-829d-20fa2ac5cd98, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-04 05:42:20 - qubik.task.task_event - INFO - TaskEvent created: event_id=83bf602e-45e0-40b8-9261-da09d272d941, target_state=PENDING, timestamp=2025-07-04 00:42:20, task_uuid=261aadff-34b6-4644-829d-20fa2ac5cd98, task_name='test-container-1'
+2025-07-04 05:42:20 - qubik.worker.worker - INFO - Task 'test-container-1' (UUID: 261aadff) added to queue.
+2025-07-04 05:42:20 - qubik.worker.api - INFO - Added task 261aadff-34b6-4644-829d-20fa2ac5cd98 to worker queue.
+2025-07-04 05:42:20 - qubik.manager.manager - INFO - Successfully sent task 261aadff-34b6-4644-829d-20fa2ac5cd98 to worker localhost:5555. Worker returned: task_id=UUID('261aadff-34b6-4644-829d-20fa2ac5cd98') name='test-container-1' state=1 image='strm/helloworld-http' cpu=0.5 memory=268435456 disk=1 restart_policy='no' exposed_ports=[80] port_bindings={8001: 80} container_id=None start_time=None finish_time=None
+2025-07-04 05:42:20 - qubik.task.task - INFO - Task initialized: uuid=261aadff-34b6-4644-829d-20fa2ac5cd98, name='test-container-1', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-04 05:42:20 - qubik.manager.manager - DEBUG - Manager's task_db updated for task 261aadff-34b6-4644-829d-20fa2ac5cd98 with worker's response.
+2025-07-04 05:42:20 - qubik.main - INFO - Task 261aadff-34b6-4644-829d-20fa2ac5cd98 added to manager's pending queue and manager attempted to send.
+2025-07-04 05:42:20 - qubik.task.task - INFO - Task initialized: uuid=e2231af6-6a47-4467-baf8-e2ddf733cfbd, name='test-container-2', state=PENDING, image='strm/helloworld-http'
+2025-07-04 05:42:20 - qubik.task.task_event - INFO - TaskEvent created: event_id=c0eb87c9-c96c-4da9-8c34-fa7908e76c28, target_state=PENDING, timestamp=2025-07-04 00:42:20, task_uuid=e2231af6-6a47-4467-baf8-e2ddf733cfbd, task_name='test-container-2'
+2025-07-04 05:42:20 - qubik.manager.manager - INFO - Added task event c0eb87c9-c96c-4da9-8c34-fa7908e76c28 (for task e2231af6-6a47-4467-baf8-e2ddf733cfbd) to pending queue.
+2025-07-04 05:42:20 - qubik.manager.manager - DEBUG - select_worker: Selecting worker for tasks
+2025-07-04 05:42:20 - qubik.manager.manager - DEBUG - select_worker: Selected worker=localhost:5555
+2025-07-04 05:42:20 - qubik.manager.manager - INFO - Pulled task event c0eb87c9-c96c-4da9-8c34-fa7908e76c28 (for task e2231af6-6a47-4467-baf8-e2ddf733cfbd - test-container-2) off pending queue
+2025-07-04 05:42:20 - qubik.worker.api - INFO - Received request to start task event ID: c0eb87c9-c96c-4da9-8c34-fa7908e76c28
+2025-07-04 05:42:20 - qubik.task.task - INFO - Task initialized: uuid=e2231af6-6a47-4467-baf8-e2ddf733cfbd, name='test-container-2', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-04 05:42:20 - qubik.task.task_event - INFO - TaskEvent created: event_id=c0eb87c9-c96c-4da9-8c34-fa7908e76c28, target_state=PENDING, timestamp=2025-07-04 00:42:20, task_uuid=e2231af6-6a47-4467-baf8-e2ddf733cfbd, task_name='test-container-2'
+2025-07-04 05:42:20 - qubik.worker.worker - INFO - Task 'test-container-2' (UUID: e2231af6) added to queue.
+2025-07-04 05:42:20 - qubik.worker.api - INFO - Added task e2231af6-6a47-4467-baf8-e2ddf733cfbd to worker queue.
+2025-07-04 05:42:20 - qubik.manager.manager - INFO - Successfully sent task e2231af6-6a47-4467-baf8-e2ddf733cfbd to worker localhost:5555. Worker returned: task_id=UUID('e2231af6-6a47-4467-baf8-e2ddf733cfbd') name='test-container-2' state=1 image='strm/helloworld-http' cpu=0.5 memory=268435456 disk=1 restart_policy='no' exposed_ports=[80] port_bindings={8002: 80} container_id=None start_time=None finish_time=None
+2025-07-04 05:42:20 - qubik.task.task - INFO - Task initialized: uuid=e2231af6-6a47-4467-baf8-e2ddf733cfbd, name='test-container-2', state=SCHEDULED, image='strm/helloworld-http'
+2025-07-04 05:42:20 - qubik.manager.manager - DEBUG - Manager's task_db updated for task e2231af6-6a47-4467-baf8-e2ddf733cfbd with worker's response.
+2025-07-04 05:42:20 - qubik.main - INFO - Task e2231af6-6a47-4467-baf8-e2ddf733cfbd added to manager's pending queue and manager attempted to send.
+2025-07-04 05:42:21 - qubik.main - INFO - Starting Manager update and observation loops in separate threads...
+2025-07-04 05:42:21 - qubik.main - INFO - [Manager Thread] Updating tasks from 1 workers
+2025-07-04 05:42:21 - qubik.main - INFO - ManagerUpdateThread started.
+2025-07-04 05:42:21 - qubik.manager.manager - DEBUG - update_tasks: Updating 0 pending tasks
+2025-07-04 05:42:21 - qubik.main - INFO - [Observer Thread] Task: id: 9cfc8c19-5f12-4924-9e5f-1472a74eb7f1, state: SCHEDULED
+2025-07-04 05:42:21 - qubik.main - INFO - ManagerObserveThread started.
+2025-07-04 05:42:21 - qubik.manager.manager - DEBUG - Checking worker localhost:5555 for task updates
+2025-07-04 05:42:21 - qubik.main - INFO - [Observer Thread] Task: id: 261aadff-34b6-4644-829d-20fa2ac5cd98, state: SCHEDULED
+2025-07-04 05:42:21 - qubik.main - INFO - All components started. Manager and Worker are running.
+2025-07-04 05:42:21 - qubik.main - INFO - [Observer Thread] Task: id: e2231af6-6a47-4467-baf8-e2ddf733cfbd, state: SCHEDULED
+2025-07-04 05:42:21 - qubik.main - INFO - Monitor logs in this terminal. Use 'curl http://localhost:5555/tasks' or 'docker ps' in another terminal to verify.
+2025-07-04 05:42:21 - qubik.main - INFO - 
+Press Enter to stop the orchestrator (or Ctrl+C)...
+2025-07-04 05:42:21 - qubik.worker.api - INFO - Received request to get all tasks.
+2025-07-04 05:42:21 - qubik.worker.worker - DEBUG - get_tasks: Getting tasks for worker='worker_0'
+2025-07-04 05:42:22 - qubik.worker.worker - INFO - Dequeued task 'test-container-0' (UUID: 9cfc8c19) with desired state: SCHEDULED.
+2025-07-04 05:42:22 - qubik.worker.worker - INFO - Task 'test-container-0' (UUID: 9cfc8c19) not found in DB. Assuming initial state PENDING.
+2025-07-04 05:42:22 - qubik.worker.worker - INFO - Worker 'worker_0': Starting task 'test-container-0' (UUID: 9cfc8c19) as desired state is SCHEDULED.
+2025-07-04 05:42:22 - qubik.worker.worker - DEBUG - start_task: Starting task_id=9cfc8c19-5f12-4924-9e5f-1472a74eb7f1 ('test-container-0')
+2025-07-04 05:42:22 - qubik.task.config - INFO - Config created: test-container-0-9cfc8c19 (image: strm/helloworld-http)
+Config details - CPU: 0.5, Memory: 268435456, Disk: 1, Ports: [80]
+2025-07-04 05:42:22 - qubik.task.qubik_docker - INFO - Docker client initialized for image: 'strm/helloworld-http'
+2025-07-04 05:42:22 - qubik.task.qubik_docker - DEBUG - Initialized Docker client from environment variables.
+2025-07-04 05:42:22 - qubik.task.qubik_docker - INFO - Attempting to run task 'test-container-0-9cfc8c19' with image 'strm/helloworld-http'
+2025-07-04 05:42:22 - qubik.task.qubik_docker - INFO - Pulling image: 'strm/helloworld-http'...
+2025-07-04 05:42:24 - qubik.main - INFO - KeyboardInterrupt detected. Initiating graceful shutdown.
+2025-07-04 05:42:24 - qubik.main - INFO - Orchestrator Core Test Script Finished.

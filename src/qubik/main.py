@@ -54,7 +54,7 @@ def main():
     logger.info("Initializing Worker instance...")
     worker_instance: qubik.Worker = qubik.Worker("worker_0")
 
-    qubik.api.api.global_worker = worker_instance
+    qubik.worker.api.global_worker = worker_instance
     logger.info("Worker instance assigned to FastAPI global worker.")
 
     logger.info("Initializing Manager instance...")
@@ -72,7 +72,7 @@ def main():
     logger.info(f"Starting Worker API server on http://{host}:{port}...")
     worker_api_thread = threading.Thread(
         target=uvicorn.run, 
-        args=(qubik.app,), 
+        args=(qubik.worker_app,), 
         kwargs={"host": host, "port": port, "log_level": "info"}, 
         daemon=True, 
         name="WorkerApiThread"

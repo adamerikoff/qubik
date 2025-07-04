@@ -7,9 +7,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.responses import Response
 
-from qubik import State, Worker, WorkerMetrics
-
+from .worker import Worker
 from .schemas import TaskApiSchema, TaskEventApiSchema, task_to_api_schema, api_schema_to_task_event
+
+from qubik import State, WorkerMetrics
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +25,7 @@ def get_worker() -> Worker:
         )
     return global_worker
 
-app = FastAPI(
+worker_app = FastAPI(
     title="Qubik Worker API",
     description="API for managing tasks on a Qubik worker.",
     version="0.1.0",
@@ -55,12 +56,12 @@ async def lifespan(app: FastAPI):
     else:
         logger.warning("global_worker is None at FastAPI lifespan shutdown. No worker to stop.")
 
-@app.get("/stats", response_model=WorkerMetrics, summary="Get worker performance metrics")
+@worker_app.get("/stats", response_model=WorkerMetrics, summary="Get worker performance metrics")
 async def get_stats_handler(worker: Worker = Depends(get_worker)):
     logger.debug("Received request to get worker stats.")
     return worker.current_metrics
 
-@app.post("/tasks", response_model=TaskApiSchema, status_code=status.HTTP_201_CREATED)
+@worker_app.post("/tasks", response_model=TaskApiSchema, status_code=status.HTTP_201_CREATED)
 async def start_task_handler(task_event_api: TaskEventApiSchema, worker: Worker = Depends(get_worker)):
     logger.info(f"Received request to start task event ID: {task_event_api.event_id}")
     try:
@@ -78,7 +79,7 @@ async def start_task_handler(task_event_api: TaskEventApiSchema, worker: Worker 
             detail=f"Internal Server Error: {e}"
         )
 
-@app.get("/tasks", response_model=typing.List[TaskApiSchema])
+@worker_app.get("/tasks", response_model=typing.List[TaskApiSchema])
 async def get_tasks_handler(worker: Worker = Depends(get_worker)):
     logger.info("Received request to get all tasks.")
     try:
@@ -94,7 +95,7 @@ async def get_tasks_handler(worker: Worker = Depends(get_worker)):
             detail=f"Internal Server Error: {e}"
         )
 
-@app.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
+@worker_app.delete("/tasks/{task_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def stop_task_handler(task_id: uuid.UUID, worker: Worker = Depends(get_worker)):
     logger.info(f"Received request to stop task with ID: {task_id}")
     try:
