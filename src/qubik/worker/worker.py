@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 class Worker:
     def __init__(self, name: str):
+        self.worker_id: uuid.UUID = uuid.uuid4()
         self.name: str = name
         self.queue: collections.deque[TaskEvent] = collections.deque()
         self.db: typing.Dict[uuid.UUID, Task] = {}

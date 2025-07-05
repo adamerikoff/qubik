@@ -3,6 +3,8 @@ import collections
 import typing
 import logging
 import httpx
+import asyncio
+import time
 
 from fastapi import status
 
@@ -11,7 +13,7 @@ from qubik import Task, TaskEvent, State, task_event_to_api_schema, TaskEventApi
 logger = logging.getLogger(__name__)
 
 class Manager:
-    def __init__(self, workers: typing.List[str] = None, name: str = "main-manager"):
+    def __init__(self, workers: typing.List[str] = None, name: str = "main-manager", http_client: httpx.AsyncClient = None):
         self.name: str = name
         self.pending_events: collections.deque[TaskEvent] = collections.deque()
         self.task_db: typing.Dict[uuid.UUID, Task] = {}
@@ -28,48 +30,79 @@ class Manager:
         self.task_worker_map: typing.Dict[uuid.UUID, str] = {}
 
         self.last_worker = 0
-        self.http_client = httpx.Client(timeout=10.0)
+        # Use httpx.AsyncClient for asynchronous operations
+        self.http_client: httpx.AsyncClient = http_client if http_client else httpx.AsyncClient(timeout=10.0)
+
+        self._stop_event_update_tasks = asyncio.Event()
+        self._stop_event_process_tasks = asyncio.Event()
 
         logger.info("Initializing Manager: name='%s', initial_workers=%s", self.name, self.workers)
 
-    def update_tasks(self) -> None:
-        logger.debug("update_tasks: Updating %d pending tasks", len(self.pending_events))
-        for worker_address in self.workers:
-            logger.debug("Checking worker %s for task updates", worker_address)
-            url = f"http://{worker_address}/tasks"
-            try:
-                resp = self.http_client.get(url)
-                resp.raise_for_status()
+    def add_worker_address(self, worker_address: str) -> None:
+        if worker_address not in self.workers:
+            self.workers.append(worker_address)
+            # You might want to initialize a new entry in worker_task_map for this new worker
+            if worker_address not in self.worker_task_map:
+                self.worker_task_map[worker_address] = []
+            logger.info("Added worker address %s to manager's list and initialized task map.", worker_address)
+        else:
+            logger.debug("Worker address %s already present in manager's list.", worker_address)
+            
+    async def update_tasks(self) -> None:
+        logger.debug("update_tasks: Updating tasks from workers.")
+        while not self._stop_event_update_tasks.is_set():
+            for worker_address in self.workers:
+                logger.debug("Checking worker %s for task updates", worker_address)
+                url = f"http://{worker_address}/tasks"
+                try:
+                    resp = await self.http_client.get(url)
+                    resp.raise_for_status()
 
-                tasks_api_schemas = [TaskApiSchema.model_validate(t) for t in resp.json()]
+                    tasks_api_schemas = [TaskApiSchema.model_validate(t) for t in resp.json()]
 
-                for task_api in tasks_api_schemas:
-                    logger.debug("Attempting to update task %s from worker %s", task_api.task_id, worker_address)
-                    
-                    if task_api.task_id not in self.task_db:
-                        logger.warning("Task with ID %s found on worker %s but not in manager's task_db. Skipping update for now.", task_api.task_id, worker_address)
-                        continue
-                    
-                    local_task = self.task_db[task_api.task_id]
+                    for task_api in tasks_api_schemas:
+                        logger.debug("Attempting to update task %s from worker %s", task_api.task_id, worker_address)
+                        
+                        if task_api.task_id not in self.task_db:
+                            logger.warning("Task with ID %s found on worker %s but not in manager's task_db. Skipping update for now.", task_api.task_id, worker_address)
+                            continue
+                        
+                        local_task = self.task_db[task_api.task_id]
 
-                    if local_task.state.value != task_api.state:
-                        local_task.state = State(task_api.state)
-                        logger.info("Task %s state updated to %s based on worker %s.", task_api.task_id, local_task.state.name, worker_address)
-                    
-                    if task_api.start_time:
-                        local_task.start_time = task_api.start_time
-                    if task_api.finish_time:
-                        local_task.finish_time = task_api.finish_time
-                    if task_api.container_id:
-                        local_task.container_id = task_api.container_id
-                    
-            except httpx.RequestError as e:
-                logger.error("Error connecting to worker %s during update: %s", worker_address, e)
-            except httpx.HTTPStatusError as e:
-                logger.error("HTTP error from worker %s during update: Status %d - %s",
-                             worker_address, e.response.status_code, e.response.text)
-            except Exception as e:
-                logger.exception("An unexpected error occurred during task update from worker %s:", worker_address)
+                        if local_task.state.value != task_api.state:
+                            local_task.state = State(task_api.state)
+                            logger.info("Task %s state updated to %s based on worker %s.", task_api.task_id, local_task.state.name, worker_address)
+                        
+                        if task_api.start_time:
+                            local_task.start_time = task_api.start_time
+                        if task_api.finish_time:
+                            local_task.finish_time = task_api.finish_time
+                        if task_api.container_id:
+                            local_task.container_id = task_api.container_id
+                        
+                except httpx.RequestError as e:
+                    logger.error("Error connecting to worker %s during update: %s", worker_address, e)
+                except httpx.HTTPStatusError as e:
+                    logger.error("HTTP error from worker %s during update: Status %d - %s",
+                                 worker_address, e.response.status_code, e.response.text)
+                except Exception as e:
+                    logger.exception("An unexpected error occurred during task update from worker %s:", worker_address)
+            
+            await asyncio.sleep(5) # Poll every 5 seconds
+
+    async def process_tasks(self) -> None:
+        logger.debug("process_tasks: Processing pending tasks.")
+        while not self._stop_event_process_tasks.is_set():
+            if self.pending_events:
+                await self.send_work()
+            else:
+                logger.debug("No pending tasks to process.")
+            await asyncio.sleep(1) # Check every 1 second
+
+    def stop_background_tasks(self):
+        logger.info("Signaling Manager background tasks to stop.")
+        self._stop_event_update_tasks.set()
+        self._stop_event_process_tasks.set()
 
 
     def select_worker(self) -> str:
@@ -78,19 +111,14 @@ class Manager:
             logger.warning("No workers registered to select from.")
             return "" 
 
-        new_worker_index: int
-        if (self.last_worker + 1 < len(self.workers)):
-            new_worker_index = self.last_worker + 1
-            self.last_worker = self.last_worker + 1
-        else:
-            new_worker_index = 0
-            self.last_worker = 0
+        # Round-robin selection
+        selected_worker = self.workers[self.last_worker]
+        self.last_worker = (self.last_worker + 1) % len(self.workers)
         
-        selected_worker = self.workers[new_worker_index]
         logger.debug("select_worker: Selected worker=%s", selected_worker)
         return selected_worker
     
-    def send_work(self) -> None:
+    async def send_work(self) -> None:
         if not self.pending_events:
             logger.info("No work in the pending queue.")
             return
@@ -102,8 +130,7 @@ class Manager:
         
         task_event_to_send: TaskEvent = self.pending_events.popleft()
         task_to_send = task_event_to_send.task
-        logger.info("Pulled task event %s (for task %s - %s) off pending queue",
-                    task_event_to_send.event_id, task_to_send.task_uuid, task_to_send.name)
+        logger.info("Pulled task event %s (for task %s - %s) off pending queue", task_event_to_send.event_id, task_to_send.task_uuid, task_to_send.name)
 
         self.event_db[task_to_send.task_uuid] = task_event_to_send
 
@@ -112,7 +139,7 @@ class Manager:
         self.worker_task_map[worker_address].append(task_to_send.task_uuid)
         self.task_worker_map[task_to_send.task_uuid] = worker_address
 
-        task_to_send.state = State.SCHEDULED
+        task_to_send.state = State.SCHEDULED # Mark as scheduled before sending
 
         self.task_db[task_to_send.task_uuid] = task_to_send
 
@@ -123,7 +150,7 @@ class Manager:
         url = f"http://{worker_address}/tasks"
 
         try:
-            resp = self.http_client.post(url, headers={"Content-Type": "application/json"}, content=data_json)
+            resp = await self.http_client.post(url, headers={"Content-Type": "application/json"}, content=data_json)
             resp.raise_for_status()
 
             if resp.status_code == status.HTTP_201_CREATED:

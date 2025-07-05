@@ -1,134 +1,179 @@
-import time
 import logging
-import threading
+import asyncio
 import os
 import uuid
 import datetime
+import httpx
 
-import uvicorn
+# Import your refactored modules.
+# Ensure 'qubik' is a package (has an __init__.py) and these files are inside it.
+from qubik import Task, TaskEvent, State, Worker, Manager, WorkerApiServer, ManagerApiServer
 
-import qubik
-
+# Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-def manager_update_loop(manager_instance: qubik.Manager):
+# --- Async Worker Task Processing Loop ---
+async def run_worker_tasks_loop(worker_instance: Worker):
+    logger.info(f"[{worker_instance.name} Loop] Starting worker task processing loop...")
     while True:
         try:
-            logger.info("[Manager Thread] Updating tasks from %d workers", len(manager_instance.workers))
-            manager_instance.update_tasks()
+            if worker_instance.queue:
+                await asyncio.to_thread(worker_instance.run_task)
+            else:
+                logger.debug(f"[{worker_instance.name} Loop] Queue is empty, sleeping...")
+            await asyncio.sleep(5)
         except Exception as e:
-            logger.exception("Error in manager_update_loop:")
-        time.sleep(15)
+            logger.exception(f"Error in {worker_instance.name} task processing loop:")
 
-def manager_observe_tasks_loop(manager_instance: qubik.Manager):
+# --- Async Manager Observation Loop (for logging/debugging purposes in main) ---
+async def manager_observe_tasks_loop(manager_instance: Manager):
+    logger.info("[Manager Observer] Starting manager task observation loop...")
     while True:
-        if not manager_instance.task_db:
-            logger.info("[Observer Thread] No tasks in manager's database yet.")
-        else:
-            for task_id, t in manager_instance.task_db.items():
-                logger.info("[Observer Thread] Task: id: %s, state: %s", t.task_uuid, t.state.name)
-        time.sleep(15)
+        try:
+            if not manager_instance.task_db:
+                logger.info("[Manager Observer] No tasks in manager's database yet.")
+            else:
+                logger.info("--- Current Tasks in Manager DB ---")
+                for task_id, t in manager_instance.task_db.items():
+                    worker_id_for_task = manager_instance.task_worker_map.get(task_id, 'UNASSIGNED')
+                    logger.info(f"  Task ID: {t.task_uuid}, Name: {t.name}, State: {t.state.name}, Worker: {worker_id_for_task}")
+                logger.info("-----------------------------------")
+        except Exception as e:
+            logger.exception("Error in manager_observe_tasks_loop:")
+        await asyncio.sleep(10)
 
-def run_tasks_loop(worker_instance: qubik.Worker):
-    logger.info("Starting worker task processing loop...")
-    while True:
-        if len(worker_instance.queue) > 0:
-            worker_instance.run_task()
-        else:
-            logger.debug("Queue is empty, sleeping...")
-            time.sleep(5)
+# --- The actual asynchronous application logic ---
+async def async_main_orchestrator(): # Renamed from main()
+    logger.info("Starting Qubik Orchestrator (Worker(s) + Manager)")
 
-def main():
-    logger.info("Starting Cube Orchestrator (Worker + Manager)")
+    # --- Configuration from Environment Variables ---
+    manager_host = os.getenv("MANAGER_HOST", "127.0.0.1")
+    manager_port = int(os.getenv("MANAGER_PORT", "8000"))
 
-    host = os.getenv("CUBE_HOST", "localhost")
-    try:
-        port = int(os.getenv("CUBE_PORT", "5555"))
-    except ValueError:
-        logger.error("CUBE_PORT environment variable must be an integer. Using default 5555.")
-        port = 5555
+    worker_host = os.getenv("WORKER_HOST", "127.0.0.1")
+    base_worker_port = int(os.getenv("WORKER_BASE_PORT", "8001"))
+    num_workers = int(os.getenv("NUM_WORKERS", "2"))
 
-    logger.info(f"Configuring worker API to listen on {host}:{port}")
+    # --- Initialize Shared HTTPX AsyncClient for Manager ---
+    manager_http_client = httpx.AsyncClient(timeout=10.0)
 
-    logger.info("Initializing Worker instance...")
-    worker_instance: qubik.Worker = qubik.Worker("worker_0")
+    # --- Initialize Manager Instance ---
+    manager_instance = Manager(workers=[], http_client=manager_http_client)
+    logger.info(f"Manager initialized: {manager_instance}")
 
-    qubik.worker.api.global_worker = worker_instance
-    logger.info("Worker instance assigned to FastAPI global worker.")
+    # --- Create and Start Manager API Server ---
+    manager_api_server = ManagerApiServer(manager_instance, host=manager_host, port=manager_port)
+    manager_api_server.start()
+    logger.info(f"Manager API server active at http://{manager_host}:{manager_port} (in a separate thread).")
+    await asyncio.sleep(1) # Give manager server a moment to start up
 
-    logger.info("Initializing Manager instance...")
-    worker_address = f"{host}:{port}"
-    manager_workers = [worker_address]
+    # --- Create and Manage Workers ---
+    worker_api_servers: list[WorkerApiServer] = []
+    worker_internal_loops: list[asyncio.Task] = []
 
-    manager_instance = qubik.Manager(workers=manager_workers)
-    
-    logger.info("Starting Worker components in separate threads...")
-    
-    worker_thread = threading.Thread(target=run_tasks_loop, args=(worker_instance,), daemon=True, name=f"{worker_instance.name}RunThread")
-    worker_thread.start()
-    logger.info("WorkerRunThread started.")
+    for i in range(num_workers):
+        worker_id = uuid.uuid4()
+        worker_name = f"worker_{i}"
+        current_worker_port = base_worker_port + i
+        worker_api_url = f"{worker_host}:{current_worker_port}"
 
-    logger.info(f"Starting Worker API server on http://{host}:{port}...")
-    worker_api_thread = threading.Thread(
-        target=uvicorn.run, 
-        args=(qubik.worker_app,), 
-        kwargs={"host": host, "port": port, "log_level": "info"}, 
-        daemon=True, 
-        name="WorkerApiThread"
-    )
-    worker_api_thread.start()
-    logger.info("WorkerApiThread started.")
+        worker_instance = Worker(name=worker_name)
+        logger.info(f"Creating {worker_name} instance (ID: {worker_id}).")
 
-    time.sleep(2) 
+        worker_server = WorkerApiServer(worker_instance, host=worker_host, port=current_worker_port)
+        worker_server.start()
+        worker_api_servers.append(worker_server)
+        logger.info(f"{worker_name} API active at {worker_api_url} (in a separate thread).")
+        
+        manager_instance.add_worker_address(worker_api_url)
+        logger.info(f"Registered {worker_name} ({worker_api_url}) with the Manager.")
 
-    logger.info("Creating and sending 3 initial tasks to the Manager...")
-    for i in range(3):
-        t = qubik.Task(
+        worker_loop_task = asyncio.create_task(run_worker_tasks_loop(worker_instance))
+        worker_internal_loops.append(worker_loop_task)
+        logger.info(f"{worker_name}'s internal task processing loop started as an asyncio task.")
+
+    logger.info(f"All {num_workers} worker components initiated.")
+
+    # --- Start Manager's Observation Loop ---
+    manager_observer_task = asyncio.create_task(manager_observe_tasks_loop(manager_instance))
+    logger.info("Manager's observation loop started.")
+
+    # --- Submit Initial Test Tasks ---
+    logger.info("Submitting 5 initial test tasks to the Manager's API (via Manager's add_task_event_to_pending)...")
+    for i in range(5):
+        task_name = f"my-awesome-container-{i}"
+        container_port = 80
+        host_port = 9000 + i
+        
+        t = Task(
             task_uuid=uuid.uuid4(),
-            name=f"test-container-{i}",
-            state=qubik.State.PENDING,
+            name=task_name,
+            state=State.PENDING,
             image="strm/helloworld-http",
-            cpu=0.5,
-            memory=268435456,
-            disk=1,
+            cpu=0.2,
+            memory=128 * 1024 * 1024,
+            disk=10 * 1024 * 1024,
             restart_policy="no",
-            exposed_ports=[80],
-            port_bindings={8000 + i: 80}
+            exposed_ports=[container_port],
+            port_bindings={host_port: container_port}
         )
-        te = qubik.TaskEvent(
+        te = TaskEvent(
             event_id=uuid.uuid4(),
-            state=qubik.State.PENDING,
+            state=State.PENDING,
             task=t,
             timestamp=datetime.datetime.now(datetime.timezone.utc)
         )
         manager_instance.add_task_event_to_pending(te)
-        manager_instance.send_work()
-        logger.info(f"Task {t.task_uuid} added to manager's pending queue and manager attempted to send.")
-        
-        time.sleep(0.5) 
+        logger.info(f"Submitted task '{task_name}' (ID: {t.task_uuid}) to manager.")
+        await asyncio.sleep(0.1)
 
-    logger.info("Starting Manager update and observation loops in separate threads...")
-    
-    manager_update_thread = threading.Thread(target=manager_update_loop, args=(manager_instance,), daemon=True, name="ManagerUpdateThread")
-    manager_update_thread.start()
-    logger.info("ManagerUpdateThread started.")
-
-    manager_observe_thread = threading.Thread(target=manager_observe_tasks_loop, args=(manager_instance,), daemon=True, name="ManagerObserveThread")
-    manager_observe_thread.start()
-    logger.info("ManagerObserveThread started.")
-
-    logger.info("All components started. Manager and Worker are running.")
-    logger.info("Monitor logs in this terminal. Use 'curl http://localhost:5555/tasks' or 'docker ps' in another terminal to verify.")
-    logger.info("\nPress Enter to stop the orchestrator (or Ctrl+C)...")
+    logger.info("\nQubik Orchestrator is running. Watch the logs for task status updates.")
+    logger.info(f"Manager API: http://{manager_host}:{manager_port}/docs")
+    for i in range(num_workers):
+        logger.info(f"Worker {i} API: http://{worker_host}:{base_worker_port + i}/docs")
+    logger.info("\nPress Ctrl+C to initiate graceful shutdown...")
     
     try:
-        input() 
+        while True:
+            await asyncio.sleep(10)
+    except asyncio.CancelledError:
+        logger.info("Main loop cancelled due to an internal signal.")
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt detected. Initiating graceful shutdown.")
     finally:
-        logger.info("Orchestrator Core Test Script Finished.")
+        logger.info("\n--- Orchestrator Shutdown Sequence Initiated ---")
+        
+        logger.info("Stopping Manager API server...")
+        await manager_api_server.stop()
+        
+        logger.info("Stopping Worker API servers...")
+        for server in worker_api_servers:
+            await server.stop() 
+        
+        logger.info("Cancelling worker internal processing loops...")
+        for task in worker_internal_loops:
+            task.cancel()
+        await asyncio.gather(*worker_internal_loops, return_exceptions=True)
+        logger.info("All worker internal loops cancelled/stopped.")
 
+        logger.info("Cancelling manager observation loop...")
+        manager_observer_task.cancel()
+        await asyncio.gather(manager_observer_task, return_exceptions=True)
+        logger.info("Manager observation loop cancelled.")
 
-if __name__ == "__main__":
-    main()
+        if manager_http_client:
+            logger.info("Closing Manager's shared HTTP client...")
+            await manager_http_client.aclose()
+            logger.info("Manager's shared HTTP client closed.")
+
+        logger.info("--- Qubik Orchestrator Shutdown Complete ---")
+
+# --- New Synchronous Entry Point for pyproject.toml ---
+def main(): # This is the function that pyproject.toml's 'start' script will call
+    try:
+        asyncio.run(async_main_orchestrator())
+    except KeyboardInterrupt:
+        logger.info("Application exited via KeyboardInterrupt from main wrapper.")
+    except Exception as e:
+        logger.exception("An unhandled error occurred in the main wrapper:")
