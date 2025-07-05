@@ -1,5 +1,3 @@
-Here's the improved version with a table of contents and your requested additions:
-
 # Qubik: A Python Container Orchestrator  
 
 ## 📚 Table of Contents
