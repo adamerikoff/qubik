@@ -16,7 +16,7 @@
 
 ## 📖 Project Overview  
 
-Qubik is an **educational Python implementation** of core container orchestration concepts, inspired by Tim Boring's ["Build an Orchestrator in Go From Scratch"](https://www.manning.com/books/build-an-orchestrator-in-go-from-scratch). While initially following the book's architectural patterns, the project later diverges significantly—particularly in worker-manager interaction logic. Key differences stem from Python-specific implementations and the absence of Go routines.  
+Qubik is an **educational Python implementation** of core container orchestration concepts, inspired by Tim Boring's ["Build an Orchestrator in Go From Scratch"](https://www.manning.com/books/build-an-orchestrator-in-go-from-scratch). While initially following the book's architectural patterns, the project later diverges a little bit, particularly in worker-manager interaction logic. Key differences stem from Python-specific implementations and the absence of Go routines.  
 
 ## 🧠 Technical Implementation  
 
